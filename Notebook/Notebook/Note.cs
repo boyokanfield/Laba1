@@ -8,147 +8,99 @@ namespace Notebook
 {
     class Note
     {
-        private string surname;
-        public string Surname
-        {
-            get { return this.surname; }
-            set { this.surname = value; }
-        }
-        private string name;
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
-        }
-        private string secondName;
-        public string SecondName
-        {
-            get { return this.secondName; }
-            set { this.secondName = value; }
-        }
-        private string phoneNumber;
-        public string PhoneNumber
-        {
-            get { return this.phoneNumber; }
-            set { this.phoneNumber = value; }
-        }
-        private string country;
-        public string Country
-        {
-            get { return this.country; }
-            set { this.country = value; }
-        }
-        private DateTime dateOfBirth;
-        public DateTime DateOfBirth
-        {
-            get { return this.dateOfBirth; }
-            set { this.dateOfBirth = value; }
-        }
-        private string organization;
-        public string Organization
-        {
-            get { return this.organization; }
-            set { this.organization = value; }
-        }
-        private string position;
-        public string Position
-        {
-            get { return this.position; }
-            set { this.position = value; }
-        }
-        private string info;
-        public string Info
-        {
-            get { return this.info; }
-            set { this.info = value; }
-        }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Country { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Organization { get; set; }
+        public string Info { get; set; }
+        public string Position { get; set; }
 
-        public static Note CreateNote()
+        public Note()
         {
-            Note note = new Note();
-            //string s;
             Console.Write("Фамилия: ");
-            note.Surname = Check.IsEmpty(Console.ReadLine());
+            Surname = Check.Name(Console.ReadLine());
             Console.Write("Имя: ");
-            note.Name = Check.IsEmpty(Console.ReadLine());
+            Name = Check.Name(Console.ReadLine());
             Console.Write("Отчество: ");
-            note.SecondName = Console.ReadLine();
+            SecondName = Check.SimpleString(Console.ReadLine());
             Console.Write("Номер телефона: ");
-            note.PhoneNumber = Check.CheckNumber(Console.ReadLine());
+            PhoneNumber = Check.Number(Console.ReadLine());
             Console.Write("Страна: ");
-            note.Country = Check.IsEmpty(Console.ReadLine());
+            Country = Check.Name(Console.ReadLine());
             Console.Write("Дата рождения: ");
-            note.DateOfBirth = Check.CheckDate(Console.ReadLine());
+            DateOfBirth = Check.Date(Console.ReadLine());
             Console.Write("Организация: ");
-            note.Organization = Console.ReadLine();
+            Organization = Console.ReadLine();
             Console.Write("Должность: ");
-            note.Position = Console.ReadLine();
+            Position = Check.SimpleString(Console.ReadLine());
             Console.Write("Прочие заметки: ");
-            note.Info = Console.ReadLine();
-            return note;
+            Info = Console.ReadLine();
         }
 
-        public static void EditNote(Note note)
+        public void EditNote()
         {
-            Console.Write("Выберите поля для изменения: ");
+            Console.Write("Выберите поля для изменения в формате *Поле*,*Поле*...: ");
             string fieldList = Console.ReadLine();
             string[] field = fieldList.Split(',');
             for (int i = 0; i < field.Length; i++)
             {
                 switch (field[i])
                 {
-                    case "1":
+                    case "Фамилия":
                         {
                             Console.Write("Новая фамилия: ");
-                            note.Surname = Check.IsEmpty(Console.ReadLine());
+                            Surname = Check.Name(Console.ReadLine());
                             break;
                         }
-                    case "2":
+                    case "Имя":
                         {
                             Console.Write("Новое имя: ");
-                            note.Name = Check.IsEmpty(Console.ReadLine());
+                            Name = Check.Name(Console.ReadLine());
                             break;
                         }
-                    case "3":
+                    case "Отчество":
                         {
                             Console.Write("Новое отчество: ");
-                            note.SecondName = Console.ReadLine();
+                            SecondName = Check.SimpleString(Console.ReadLine());
                             break;
                         }
-                    case "4":
+                    case "Номер телефона":
                         {
                             Console.Write("Новый номер телефона: ");
-                            note.PhoneNumber = Check.CheckNumber(Console.ReadLine());
+                            PhoneNumber = Check.Number(Console.ReadLine());
                             break;
                         }
-                    case "5":
+                    case "Страна":
                         {
                             Console.Write("Новая страна: ");
-                            note.Country = Check.IsEmpty(Console.ReadLine());
+                            Country = Check.Name(Console.ReadLine());
                             break;
                         }
-                    case "6":
+                    case "Дата рождения":
                         {
                             Console.Write("Новая дата рождения: ");
-                            note.DateOfBirth = Check.CheckDate(Console.ReadLine());
+                            DateOfBirth = Check.Date(Console.ReadLine());
                             break;
                         }
-                    case "7":
+                    case "Организация":
                         {
                             Console.Write("Новая организация: ");
-                            note.Organization = Console.ReadLine();
+                            Organization = Console.ReadLine();
                             break;
                         }
-                    case "8":
+                    case "Должность":
                         {
                             Console.Write("Новая должность: ");
-                            note.Position = Console.ReadLine();
+                            Position = Check.SimpleString(Console.ReadLine());
                             break;
                         }
-                    case "9":
+                    case "Прочие заметки":
                         {
                             Console.Write("Новые прочие заметки: ");
-                            note.Info = Console.ReadLine();
+                            Info = Console.ReadLine();
                             break;
                         }
                     default:
@@ -160,25 +112,25 @@ namespace Notebook
             }
         }
 
-        public static void ShowNote(Note note)
+        public void ShowNote()
         {
-            Console.WriteLine("Фамилия: " + note.Surname);
-            Console.WriteLine("Имя: " + note.Name);
-            Console.WriteLine("Отчество: " + note.SecondName);
-            Console.WriteLine("Номер телефона: " + note.PhoneNumber);
-            Console.WriteLine("Страна: " + note.Country);
-            if (note.DateOfBirth == DateTime.MinValue)
+            Console.WriteLine("Фамилия: " + Surname);
+            Console.WriteLine("Имя: " + Name);
+            Console.WriteLine("Отчество: " + SecondName);
+            Console.WriteLine("Номер телефона: " + PhoneNumber);
+            Console.WriteLine("Страна: " + Country);
+            if (DateOfBirth == DateTime.MinValue)
                 Console.WriteLine("Дата рождения: ");
             else
-                Console.WriteLine("Дата рождения: " + note.DateOfBirth.Day + "." + note.DateOfBirth.Month + "." + note.DateOfBirth.Year);
-            Console.WriteLine("Организация: " + note.Organization);
-            Console.WriteLine("Должность: " + note.Position);
-            Console.WriteLine("Прочие заметки: " + note.Info);
+                Console.WriteLine("Дата рождения: " + DateOfBirth.Day + "." + DateOfBirth.Month + "." + DateOfBirth.Year);
+            Console.WriteLine("Организация: " + Organization);
+            Console.WriteLine("Должность: " + Position);
+            Console.WriteLine("Прочие заметки: " + Info);
         }
 
-        public static string ShortShowNote(Note note)
+        public string ShortShowNote()
         {
-            string s = note.Surname + " " + note.Name + " " + note.PhoneNumber;
+            string s = Surname + " " + Name + " " + PhoneNumber;
             return s;
         }
     }

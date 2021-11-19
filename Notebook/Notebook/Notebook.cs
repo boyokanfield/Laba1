@@ -7,52 +7,45 @@ namespace Notebook
     class Notebook
     {
         public Dictionary<int, Note> notes = new Dictionary<int, Note>();
-        private int id;
-        public int Id
+        public int Id { get; set; }
+  
+        public Notebook()
         {
-            get { return this.id; }
-            set { this.id = value; }
+            Id = 1;
         }
 
-        public static Notebook CreateNotebook()
+        public void AddNote()
         {
-            Notebook notebook = new Notebook();
-            notebook.Id = 1;
-            return notebook;
-        }
-
-        public static void AddNote(Notebook notebook)
-        {
-            Note note = Note.CreateNote();
-            if (notebook.notes.Any(n => n.Value.Surname == note.Surname) && notebook.notes.Any(n => n.Value.Name == note.Name) && notebook.notes.Any(n => n.Value.PhoneNumber == note.PhoneNumber))
+            Note note = new Note();
+            if (notes.Any(n => n.Value.PhoneNumber == note.PhoneNumber))
                 Console.WriteLine("Похоже, такая запись уже существует");
             else
             {
-                notebook.notes.Add(notebook.Id, note);
-                notebook.Id++;
+                notes.Add(Id, note);
+                Id++;
             }
         }
 
-        public static void EditNote(Notebook notebook, int id)
+        public void EditNote(int id)
         {
-            Note.EditNote(notebook.notes[id]);
+            notes[id].EditNote();
         }
 
-        public static void DeleteNote(Notebook notebook, int id)
+        public void DeleteNote(int id)
         {
-            notebook.notes.Remove(id);
+            notes.Remove(id);
         }
 
-        public static void ShowNote(Notebook notebook, int id)
+        public void ShowNote(int id)
         {
-            Note.ShowNote(notebook.notes[id]);
+            notes[id].ShowNote();
         }
 
-        public static void ShortShowNote(Notebook notebook)
+        public void ShortShowNote()
         {
-            foreach (KeyValuePair<int, Note> note in notebook.notes.OrderBy(key => key.Value.Surname))
+            foreach (KeyValuePair<int, Note> note in notes.OrderBy(key => key.Value.Surname))
             {
-                string s = "ID = " + note.Key + ": " + Note.ShortShowNote(note.Value);
+                string s = "ID = " + note.Key + ": " + note.Value.ShortShowNote();
                 Console.WriteLine(s);
             }
         }
